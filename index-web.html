@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Note & Finance App</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles-web.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="app-logo">
+                <span class="logo-icon">💼</span>
+                <span class="logo-text">Note & Finance</span>
+            </div>
+            <div class="header-balance">
+                <span class="balance-label">Toplam Bakiye</span>
+                <span class="balance-amount" id="header-balance">₺0.00</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <nav class="nav-menu">
+                <button class="nav-item active" data-view="dashboard">
+                    <span class="nav-icon">📊</span>
+                    <span class="nav-text">Dashboard</span>
+                </button>
+                <button class="nav-item" data-view="notes">
+                    <span class="nav-icon">📝</span>
+                    <span class="nav-text">Notlar</span>
+                </button>
+                <button class="nav-item" data-view="transactions">
+                    <span class="nav-icon">💳</span>
+                    <span class="nav-text">İşlemler</span>
+                </button>
+                <button class="nav-item" data-view="installments">
+                    <span class="nav-icon">📅</span>
+                    <span class="nav-text">Taksitler</span>
+                </button>
+                <button class="nav-item" data-view="summary">
+                    <span class="nav-icon">📈</span>
+                    <span class="nav-text">Özet</span>
+                </button>
+                <button class="nav-item" data-view="categories">
+                    <span class="nav-icon">🏷️</span>
+                    <span class="nav-text">Kategoriler</span>
+                </button>
+            </nav>
+        </aside>
+
+        <!-- Content Area -->
+        <main class="content">
+            <!-- Dashboard View -->
+            <section class="view active" id="dashboard-view">
+                <div class="view-header">
+                    <h1>Dashboard</h1>
+                    <p class="view-subtitle">Finansal durumunuza genel bakış</p>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="stat-card income">
+                        <div class="stat-icon">💰</div>
+                        <div class="stat-info">
+                            <span class="stat-label">Bu Ay Gelir</span>
+                            <span class="stat-value" id="dash-income">₺0.00</span>
+                        </div>
+                    </div>
+                    <div class="stat-card expense">
+                        <div class="stat-icon">💸</div>
+                        <div class="stat-info">
+                            <span class="stat-label">Bu Ay Gider</span>
+                            <span class="stat-value" id="dash-expense">₺0.00</span>
+                        </div>
+                    </div>
+                    <div class="stat-card balance">
+                        <div class="stat-icon">🏦</div>
+                        <div class="stat-info">
+                            <span class="stat-label">Net Bakiye</span>
+                            <span class="stat-value" id="dash-balance">₺0.00</span>
+                        </div>
+                    </div>
+                    <div class="stat-card pending">
+                        <div class="stat-icon">📅</div>
+                        <div class="stat-info">
+                            <span class="stat-label">Bekleyen Taksit</span>
+                            <span class="stat-value" id="dash-pending">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-panels">
+                    <div class="panel recent-notes">
+                        <div class="panel-header">
+                            <h3>📝 Son Notlar</h3>
+                            <button class="btn-link" onclick="switchView('notes')">Tümünü Gör →</button>
+                        </div>
+                        <div class="panel-content" id="recent-notes-list"></div>
+                    </div>
+
+                    <div class="panel upcoming-payments">
+                        <div class="panel-header">
+                            <h3>📅 Yaklaşan Ödemeler</h3>
+                            <button class="btn-link" onclick="switchView('installments')">Tümünü Gör →</button>
+                        </div>
+                        <div class="panel-content" id="upcoming-payments-list"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Notes View -->
+            <section class="view" id="notes-view">
+                <div class="view-header">
+                    <div>
+                        <h1>Notlar</h1>
+                        <p class="view-subtitle">Önemli notlarınızı ve hatırlatıcılarınızı yönetin</p>
+                    </div>
+                    <button class="btn-primary" id="add-note-btn">
+                        <span>+</span> Yeni Not
+                    </button>
+                </div>
+
+                <div class="notes-filters">
+                    <button class="filter-btn active" data-filter="all">Tümü</button>
+                    <button class="filter-btn" data-filter="4">🔴 Kritik</button>
+                    <button class="filter-btn" data-filter="3">🟠 Yüksek</button>
+                    <button class="filter-btn" data-filter="2">🟡 Orta</button>
+                    <button class="filter-btn" data-filter="1">🟢 Düşük</button>
+                </div>
+
+                <div class="notes-grid" id="notes-grid"></div>
+            </section>
+
+            <!-- Transactions View -->
+            <section class="view" id="transactions-view">
+                <div class="view-header">
+                    <div>
+                        <h1>İşlemler</h1>
+                        <p class="view-subtitle">Gelir ve giderlerinizi takip edin</p>
+                    </div>
+                    <div class="header-actions">
+                        <button class="btn-success" id="add-income-btn">
+                            <span>+</span> Gelir Ekle
+                        </button>
+                        <button class="btn-danger" id="add-expense-btn">
+                            <span>−</span> Gider Ekle
+                        </button>
+                    </div>
+                </div>
+
+                <div class="transactions-list" id="transactions-list"></div>
+            </section>
+
+            <!-- Installments View -->
+            <section class="view" id="installments-view">
+                <div class="view-header">
+                    <div>
+                        <h1>Taksitler</h1>
+                        <p class="view-subtitle">Taksitli ödemelerinizi takip edin</p>
+                    </div>
+                    <button class="btn-primary" id="add-installment-btn">
+                        <span>+</span> Yeni Taksit
+                    </button>
+                </div>
+
+                <div class="installments-grid" id="installments-grid"></div>
+            </section>
+
+            <!-- Summary View -->
+            <section class="view" id="summary-view">
+                <div class="view-header">
+                    <div>
+                        <h1>Aylık Özet</h1>
+                        <p class="view-subtitle">Aylık finansal raporunuz</p>
+                    </div>
+                    <div class="month-selector">
+                        <button class="btn-icon" id="prev-month">←</button>
+                        <span id="current-month">Aralık 2024</span>
+                        <button class="btn-icon" id="next-month">→</button>
+                    </div>
+                </div>
+
+                <div class="summary-content">
+                    <div class="summary-cards">
+                        <div class="summary-card income">
+                            <h4>Toplam Gelir</h4>
+                            <span class="amount" id="summary-income">₺0.00</span>
+                        </div>
+                        <div class="summary-card expense">
+                            <h4>Toplam Gider</h4>
+                            <span class="amount" id="summary-expense">₺0.00</span>
+                        </div>
+                        <div class="summary-card net">
+                            <h4>Net Durum</h4>
+                            <span class="amount" id="summary-net">₺0.00</span>
+                        </div>
+                    </div>
+
+                    <div class="summary-breakdown">
+                        <div class="breakdown-section">
+                            <h3>Kategori Bazlı Harcamalar</h3>
+                            <div id="category-breakdown"></div>
+                        </div>
+                        <div class="breakdown-section">
+                            <h3>Bu Ayki İşlemler</h3>
+                            <div id="monthly-transactions"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Categories View -->
+            <section class="view" id="categories-view">
+                <div class="view-header">
+                    <div>
+                        <h1>Kategoriler</h1>
+                        <p class="view-subtitle">Gelir ve gider kategorilerinizi yönetin</p>
+                    </div>
+                    <button class="btn-primary" id="add-category-btn">
+                        <span>+</span> Yeni Kategori
+                    </button>
+                </div>
+
+                <div class="categories-container">
+                    <div class="category-section">
+                        <h3>💰 Gelir Kategorileri</h3>
+                        <div class="categories-grid" id="income-categories"></div>
+                    </div>
+                    <div class="category-section">
+                        <h3>💸 Gider Kategorileri</h3>
+                        <div class="categories-grid" id="expense-categories"></div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <div class="modal-overlay" id="modal-overlay">
+        <div class="modal" id="modal">
+            <div class="modal-header">
+                <h2 id="modal-title">Modal Title</h2>
+                <button class="modal-close" id="modal-close">×</button>
+            </div>
+            <div class="modal-content" id="modal-content"></div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <script src="app-web.js"></script>
+</body>
+
+</html>

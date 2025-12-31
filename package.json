@@ -1,0 +1,15 @@
+{
+  "name": "note-finance-app",
+  "version": "1.0.0",
+  "description": "Desktop Note & Finance Application",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron ."
+  },
+  "author": "User",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^27.0.0"
+  }
+}
